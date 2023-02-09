@@ -1,6 +1,6 @@
-import { TField, TLevelConfig, TMaterialObjects } from "levels/types";
+import { TField, TLevelConfig } from "levels/types";
 import { models } from "models/models";
-import { TModelCreator } from "models/types";
+import { TMaterialObjects, TModelCreator } from "models/types";
 
 const createField = (sizeX: number, sizeY: number): TField => {
   const field: { [key: string]: [] } = {};
@@ -17,8 +17,8 @@ export const getLevelData = (
 ): { field: TField; materialObjects: TMaterialObjects } => {
   const field = createField(level.field.sizeX, level.field.sizeY);
   const { materialObjects } = level;
-
   const objects: TMaterialObjects = [];
+
   materialObjects.forEach((object) => {
     const modelCreator: TModelCreator = models[object.name];
 

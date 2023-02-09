@@ -1,6 +1,6 @@
 import { TModelCreator } from "models/types";
 import { MODELS_NAMES } from "models/models";
-import { TMaterialObject } from "levels/types";
+import { TMaterialObject } from "models/types";
 
 export const getKeke: TModelCreator = (
   coordinates = { x: 0, y: 0 }

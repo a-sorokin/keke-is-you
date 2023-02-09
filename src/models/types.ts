@@ -1,5 +1,12 @@
 import { MODELS_NAMES } from "models/models";
-import { TMaterialObject } from "levels/types";
+
+export type TMaterialObject = {
+  id: string;
+  name: (typeof MODELS_NAMES)[TModelName];
+  coordinates: { x: number; y: number };
+};
+
+export type TMaterialObjects = TMaterialObject[];
 
 export type TModelName = keyof typeof MODELS_NAMES;
 

@@ -1,7 +1,8 @@
 import { create } from "zustand";
-import { TField, TFieldConfig, TMaterialObjects } from "levels/types";
+import { TField, TFieldConfig } from "levels/types";
 import { getLevelData } from "levels/initLevel";
 import { levels } from "levels/levels";
+import { TMaterialObjects } from "models/types";
 
 interface TState {
   fieldSize: TFieldConfig;

@@ -1,18 +1,10 @@
-import { TModelName } from "models/types";
+import { TMaterialObjects, TModelName } from "models/types";
 import { MODELS_NAMES } from "models/models";
 
 export type TFieldConfig = {
   sizeX: number;
   sizeY: number;
 };
-
-export type TMaterialObject = {
-  id: string;
-  name: (typeof MODELS_NAMES)[TModelName];
-  coordinates: { x: number; y: number };
-};
-
-export type TMaterialObjects = TMaterialObject[];
 
 export type TObjectConfig = {
   name: (typeof MODELS_NAMES)[TModelName];

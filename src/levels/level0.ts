@@ -1,4 +1,3 @@
-// 0 level
 import { MODELS_NAMES } from "models/models";
 import { TLevelConfig } from "levels/types";
 import { getCoordinatesByRange } from "levels/utils";

@@ -1,6 +1,6 @@
 import style from "./Cell.module.scss";
 import React from "react";
-import { TMaterialObjects } from "levels/types";
+import { TMaterialObjects } from "models/types";
 
 type TProps = {
   materialObjects: TMaterialObjects;

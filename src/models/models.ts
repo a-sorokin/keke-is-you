@@ -1,7 +1,7 @@
 import { getKeke } from "models/Keke";
 import { getWall } from "models/Wall";
 import { getRock } from "models/Rock";
-import { TModels } from "models/types";
+import { TMaterialObject, TModels } from "models/types";
 
 export const MODELS_NAMES = {
   keke: "keke",
@@ -13,4 +13,11 @@ export const models: TModels = {
   keke: getKeke,
   wall: getWall,
   rock: getRock,
+};
+
+export const modelCreator = (baseObject: TMaterialObject, props: any) => {
+  return {
+    ...baseObject,
+    ...props,
+  };
 };

@@ -1,9 +1,14 @@
 import { levels } from "levels/levels";
 import style from "./LevelSelector.module.scss";
-import { useAppStore } from "store/store";
+import { useGameStore } from "store/store";
+import { useEffect } from "react";
 
 export const LevelSelector = () => {
-  const initLevel = useAppStore((state) => state.initLevel);
+  const initLevel = useGameStore((state) => state.initLevel);
+
+  useEffect(() => {
+    initLevel(levels[0].id);
+  }, [initLevel]);
 
   return (
     <div className={style.levelSelector}>

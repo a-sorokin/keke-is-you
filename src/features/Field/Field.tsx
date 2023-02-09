@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { Cell } from "features/Cell/Cell";
 import style from "./Field.module.scss";
-import { useAppStore } from "store/store";
+import { useGameStore } from "store/store";
 import { TFieldConfig } from "levels/types";
 
 type TProps = TFieldConfig;
@@ -18,7 +18,7 @@ const getFieldKeys = (sizeX: number, sizeY: number) => {
 
 export const Field: React.FC<TProps> = ({ sizeX, sizeY }) => {
   const fieldKeys = useMemo(() => getFieldKeys(sizeX, sizeY), [sizeX, sizeY]);
-  const field = useAppStore((state) => state.field);
+  const field = useGameStore((state) => state.field);
   const getCellObjects = useCallback((id: string) => field[id], [field]);
 
   return (

@@ -9,5 +9,6 @@ export const getKeke: TModelCreator = (
     id: crypto.randomUUID(),
     name: MODELS_NAMES.keke,
     coordinates,
+    icon: "🐥",
   };
 };

@@ -11,6 +11,9 @@ const levelConfig: TLevelConfig = {
     {
       name: MODELS_NAMES.keke,
       coordinates: [[5, 5]],
+      props: {
+        isYou: true,
+      },
     },
     {
       name: MODELS_NAMES.wall,

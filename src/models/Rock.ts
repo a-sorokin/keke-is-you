@@ -9,5 +9,6 @@ export const getRock: TModelCreator = (
     id: crypto.randomUUID(),
     name: MODELS_NAMES.rock,
     coordinates,
+    icon: "🪨",
   };
 };

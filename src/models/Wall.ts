@@ -9,5 +9,6 @@ export const getWall: TModelCreator = (
     id: crypto.randomUUID(),
     name: MODELS_NAMES.wall,
     coordinates,
+    icon: "🌵",
   };
 };

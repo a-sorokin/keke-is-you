@@ -12,7 +12,7 @@ export const Cell: React.FC<TProps> = ({ materialObjects }) => {
       <div className={style.cell}>
         {materialObjects.map((obj) => (
           <div key={`${obj.name}${obj.coordinates.x}${obj.coordinates.y}`}>
-            {obj.name}
+            {obj.icon || obj.name}
           </div>
         ))}
       </div>

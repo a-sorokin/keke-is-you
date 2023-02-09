@@ -4,6 +4,8 @@ export type TMaterialObject = {
   id: string;
   name: (typeof MODELS_NAMES)[TModelName];
   coordinates: { x: number; y: number };
+  isYou?: boolean;
+  icon?: string;
 };
 
 export type TMaterialObjects = TMaterialObject[];

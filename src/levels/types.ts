@@ -9,6 +9,9 @@ export type TFieldConfig = {
 export type TObjectConfig = {
   name: (typeof MODELS_NAMES)[TModelName];
   coordinates: number[][];
+  props?: {
+    isYou?: boolean;
+  };
 };
 
 export type TLevelConfig = {

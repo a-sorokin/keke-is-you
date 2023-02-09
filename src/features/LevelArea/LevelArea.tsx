@@ -1,9 +1,9 @@
 import { Field } from "features/Field/Field";
 import style from "./LevelArea.module.scss";
-import { useAppStore } from "store/store";
+import { useGameStore } from "store/store";
 
 export const LevelArea = () => {
-  const fieldSize = useAppStore((state) => state.fieldSize);
+  const fieldSize = useGameStore((state) => state.fieldSize);
 
   return (
     <div className={style.levelArea}>

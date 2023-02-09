@@ -6,17 +6,24 @@ export type TFieldConfig = {
   sizeY: number;
 };
 
-export type TMaterialObjects = {
+export type TMaterialObject = {
+  id: string;
   name: (typeof MODELS_NAMES)[TModelName];
-  x: number[];
-  y: number[];
-}[];
+  coordinates: { x: number; y: number };
+};
+
+export type TMaterialObjects = TMaterialObject[];
+
+export type TObjectConfig = {
+  name: (typeof MODELS_NAMES)[TModelName];
+  coordinates: number[][];
+};
 
 export type TLevelConfig = {
   field: TFieldConfig;
-  materialObjects: TMaterialObjects;
+  materialObjects: TObjectConfig[];
 };
 
 export type TField = {
-  [key: string]: any[];
+  [key: string]: TMaterialObjects;
 };

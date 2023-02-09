@@ -1,6 +1,7 @@
 // 0 level
 import { MODELS_NAMES } from "models/models";
 import { TLevelConfig } from "levels/types";
+import { getCoordinatesByRange } from "levels/utils";
 
 const levelConfig: TLevelConfig = {
   field: {
@@ -10,18 +11,18 @@ const levelConfig: TLevelConfig = {
   materialObjects: [
     {
       name: MODELS_NAMES.keke,
-      x: [5],
-      y: [5],
+      coordinates: [[5, 5]],
     },
     {
       name: MODELS_NAMES.wall,
-      x: [4, 16],
-      y: [3],
+      coordinates: [
+        ...getCoordinatesByRange([4, 16], [3]),
+        ...getCoordinatesByRange([4, 16], [8]),
+      ],
     },
     {
       name: MODELS_NAMES.rock,
-      x: [10],
-      y: [4, 7],
+      coordinates: getCoordinatesByRange([10], [4, 7]),
     },
   ],
 };

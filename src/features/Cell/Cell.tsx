@@ -8,14 +8,14 @@ type TProps = {
 
 export const Cell: React.FC<TProps> = ({ materialObjects }) => {
   return (
-    <div className={style.cell}>
-      {materialObjects.length ? (
-        materialObjects.map((obj) => (
-          <div key={`${obj.name}${obj.x}${obj.y}`}>{obj.name}</div>
-        ))
-      ) : (
-        <div>.</div>
-      )}
+    <div className={style.wrapper}>
+      <div className={style.cell}>
+        {materialObjects.map((obj) => (
+          <div key={`${obj.name}${obj.coordinates.x}${obj.coordinates.y}`}>
+            {obj.name}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

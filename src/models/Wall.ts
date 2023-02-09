@@ -1,9 +1,10 @@
-import { TModel, TModelCreator } from "models/types";
+import { TModelCreator } from "models/types";
 import { MODELS_NAMES } from "models/models";
+import { TMaterialObject } from "levels/types";
 
 export const getWall: TModelCreator = (
   coordinates = { x: 0, y: 0 }
-): TModel => {
+): TMaterialObject => {
   return {
     id: crypto.randomUUID(),
     name: MODELS_NAMES.wall,

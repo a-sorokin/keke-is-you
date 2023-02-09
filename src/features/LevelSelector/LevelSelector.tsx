@@ -14,7 +14,11 @@ export const LevelSelector = () => {
     <div className={style.levelSelector}>
       <h4 className={style.title}>Select level:</h4>
       {levels.map((level) => (
-        <button key={level.id} onClick={() => initLevel(level.id)}>
+        <button
+          key={level.id}
+          className={style.btn}
+          onClick={() => initLevel(level.id)}
+        >
           {level.name}
         </button>
       ))}

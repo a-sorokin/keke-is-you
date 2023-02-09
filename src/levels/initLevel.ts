@@ -1,23 +1,21 @@
-import { TLevelConfig } from "levels/types";
+import { TField, TLevelConfig, TMaterialObjects } from "levels/types";
 import { models } from "models/models";
 import { TModelCreator } from "models/types";
 
-const createField = (
-  sizeX: number,
-  sizeY: number
-): { [key: string]: any[] } => {
+const createField = (sizeX: number, sizeY: number): TField => {
   const field: { [key: string]: [] } = {};
-  for (let i = 0; i < sizeX; i++) {
-    for (let j = 0; j < sizeY; j++) {
+  for (let i = 1; i <= sizeX; i++) {
+    for (let j = 1; j <= sizeY; j++) {
       field[`${i},${j}`] = [];
     }
   }
   return field;
 };
 
-const getRange = (coords: number[]): number[] => {
+export const getRange = (coords: number[]): number[] => {
+  if (coords.length === 1) return coords;
   const range = [];
-  for (let i = coords[0]; i < coords[coords.length - 1]; i++) {
+  for (let i = coords[0]; i <= coords[coords.length - 1]; i++) {
     range.push(i);
   }
   return range;
@@ -37,11 +35,14 @@ const getAllObjectCoordinates = (x: number[], y: number[]) => {
   return coordinates;
 };
 
-export const initLevel = (level: TLevelConfig) => {
+export const getLevelData = (
+  level: TLevelConfig
+): { field: TField; materialObjects: TMaterialObjects } => {
   const field = createField(level.field.sizeX, level.field.sizeY);
   const { materialObjects } = level;
 
-  const objects = [];
+  // todo: remove any
+  const objects: any = [];
   materialObjects.forEach((object) => {
     const modelCreator: TModelCreator = models[object.name];
     const coords = getAllObjectCoordinates(object.x, object.y);
@@ -53,5 +54,8 @@ export const initLevel = (level: TLevelConfig) => {
     });
   });
 
-  return level;
+  return {
+    field,
+    materialObjects: objects,
+  };
 };

@@ -1,23 +1,36 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { Cell } from "features/Cell/Cell";
+import style from "./Field.module.scss";
+import { useAppStore } from "store/store";
+import { TFieldConfig } from "levels/types";
 
-type TProps = {
-  sizeX: number;
-  sizeY: number;
+type TProps = TFieldConfig;
+
+const getFieldKeys = (sizeX: number, sizeY: number) => {
+  const keys = [];
+  for (let j = 1; j <= sizeY; j++) {
+    for (let i = 1; i <= sizeX; i++) {
+      keys.push(`${i},${j}`);
+    }
+  }
+  return keys;
 };
 
-const createEmptyArr = (size: number) => Array(size).fill(0);
-
 export const Field: React.FC<TProps> = ({ sizeX, sizeY }) => {
+  const fieldKeys = useMemo(() => getFieldKeys(sizeX, sizeY), [sizeX, sizeY]);
+  const field = useAppStore((state) => state.field);
+  const getCellObjects = useCallback((id: string) => field[id], [field]);
+
   return (
-    <div>
-      {createEmptyArr(sizeX).map((_, rowN) => (
-        <div key={`row-${rowN}`}>
-          {createEmptyArr(sizeY).map((_, colN) => (
-            <div key={`col-${colN}`}>
-              <Cell />
-            </div>
-          ))}
+    <div
+      className={style.field}
+      style={{
+        gridTemplateColumns: `repeat(${sizeX}, 1fr)`,
+      }}
+    >
+      {fieldKeys.map((id) => (
+        <div key={id} id={id}>
+          <Cell materialObjects={getCellObjects(id)} />
         </div>
       ))}
     </div>

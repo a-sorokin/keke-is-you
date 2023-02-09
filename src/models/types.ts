@@ -2,7 +2,7 @@ import { MODELS_NAMES } from "models/models";
 
 export type TModel = {
   id: string;
-  name: string;
+  name: (typeof MODELS_NAMES)[TModelName];
   coordinates: { x: number; y: number };
 };
 

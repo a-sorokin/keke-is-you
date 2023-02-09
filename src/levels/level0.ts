@@ -2,7 +2,7 @@
 import { MODELS_NAMES } from "models/models";
 import { TLevelConfig } from "levels/types";
 
-export const levelConfig: TLevelConfig = {
+const levelConfig: TLevelConfig = {
   field: {
     sizeX: 19,
     sizeY: 10,
@@ -15,13 +15,15 @@ export const levelConfig: TLevelConfig = {
     },
     {
       name: MODELS_NAMES.wall,
-      x: [3, 16],
+      x: [4, 16],
       y: [3],
     },
     {
-      name: MODELS_NAMES.wall,
+      name: MODELS_NAMES.rock,
       x: [10],
-      y: [3, 7],
+      y: [4, 7],
     },
   ],
 };
+
+export default levelConfig;

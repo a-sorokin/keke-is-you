@@ -16,3 +16,7 @@ export type TLevelConfig = {
   field: TFieldConfig;
   materialObjects: TMaterialObjects;
 };
+
+export type TField = {
+  [key: string]: any[];
+};

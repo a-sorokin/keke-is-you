@@ -1,16 +1,25 @@
 import { create } from "zustand";
-import { TFieldConfig } from "levels/types";
+import { TField, TFieldConfig, TMaterialObjects } from "levels/types";
+import { getLevelData } from "levels/initLevel";
+import { levels } from "levels/levels";
 
 interface TState {
-  field: TFieldConfig | {};
+  fieldSize: TFieldConfig;
+  field: TField;
+  materialObjects: TMaterialObjects;
 
   initLevel: (id: string) => void;
 }
 
 export const useAppStore = create<TState>((set, get) => ({
+  fieldSize: {} as TFieldConfig,
   field: {},
+  materialObjects: [],
 
   initLevel: (id: string) => {
-    console.log("initLevel", id);
+    const lvl = levels.find((level) => level.id === id);
+    if (!lvl) return;
+    const { field, materialObjects } = getLevelData(lvl.config);
+    set({ field, materialObjects, fieldSize: lvl.config.field });
   },
 }));

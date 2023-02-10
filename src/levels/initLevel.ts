@@ -60,8 +60,7 @@ export const createFieldWithObjects = (
 ): TField => {
   const field = createField(fieldSize.sizeX, fieldSize.sizeY);
   materialObjects.forEach((obj) => {
-    const { x, y } = obj.coordinates;
-    field[`${x},${y}`].materialObjects.push(obj);
+    field[obj.coordinates].materialObjects.push(obj);
   });
   return field;
 };

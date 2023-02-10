@@ -11,20 +11,15 @@ export const moveObjects = (
   materialObjects.forEach((obj) => {
     if (!obj.isYou) return;
 
-    const objCoordinates = `${obj.coordinates.x},${obj.coordinates.y}`;
-    const cell = field[objCoordinates];
+    const cell = field[obj.coordinates];
     const targetCell = cell.adjoiningCells[direction];
 
     if (!targetCell) return;
 
     const objIndex = cell.materialObjects.findIndex((o) => o.id === obj.id);
     const isolatedObj = cell.materialObjects.splice(objIndex, 1)[0];
-    const targetCoords = targetCell.id.split(",");
 
-    isolatedObj.coordinates = {
-      x: Number(targetCoords[0]),
-      y: Number(targetCoords[1]),
-    };
+    isolatedObj.coordinates = targetCell.id;
     targetCell.materialObjects.push(isolatedObj);
   });
 

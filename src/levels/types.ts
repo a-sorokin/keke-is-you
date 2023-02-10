@@ -22,7 +22,7 @@ export type TLevelConfig = {
 };
 
 export type TCell = {
-  id: string;
+  id: `${number},${number}`;
   adjoiningCells: {
     [key: TDirection]: TCell | null;
   };

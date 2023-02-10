@@ -40,13 +40,13 @@ export const useGameStore = create<TState>((set, get) => ({
     set({ field, materialObjects, fieldSize: lvl.config.field });
   },
   moveObjects: (direction: TDirection) => {
-    const { materialObjects, fieldSize } = get();
-    moveObjects(direction, materialObjects, fieldSize);
+    const { materialObjects, fieldSize, field } = get();
+    moveObjects(direction, materialObjects, fieldSize, field);
     get().updateField(materialObjects);
   },
   updateField: (materialObjects: TMaterialObjects) => {
     const { fieldSize } = get();
-    const newField = createFieldWithObjects(fieldSize, materialObjects);
-    set({ field: newField });
+    const updatedField = createFieldWithObjects(fieldSize, materialObjects);
+    set({ field: updatedField });
   },
 }));

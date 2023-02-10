@@ -1,14 +1,32 @@
-import { TField, TFieldConfig, TLevelConfig } from "levels/types";
+import { TCell, TField, TFieldConfig, TLevelConfig } from "levels/types";
 import { modelCreator, models } from "models/models";
 import { TMaterialObjects, TModelCreator } from "models/types";
 
-const createField = (sizeX: number, sizeY: number): TField => {
-  const field: { [key: string]: [] } = {};
+const createCellsReferences = (field: TField, sizeX: number, sizeY: number) => {
   for (let i = 1; i <= sizeX; i++) {
     for (let j = 1; j <= sizeY; j++) {
-      field[`${i},${j}`] = [];
+      const cell = field[`${i},${j}`];
+
+      if (i > 1) cell.adjoiningCells.left = field[`${i - 1},${j}`];
+      if (i < sizeX) cell.adjoiningCells.right = field[`${i + 1},${j}`];
+      if (j > 1) cell.adjoiningCells.up = field[`${i},${j - 1}`];
+      if (j < sizeY) cell.adjoiningCells.down = field[`${i},${j + 1}`];
     }
   }
+};
+
+const createField = (sizeX: number, sizeY: number): TField => {
+  const field: { [key: string]: TCell } = {};
+  for (let i = 1; i <= sizeX; i++) {
+    for (let j = 1; j <= sizeY; j++) {
+      field[`${i},${j}`] = {
+        id: `${i},${j}`,
+        adjoiningCells: { up: null, down: null, left: null, right: null },
+        materialObjects: [],
+      };
+    }
+  }
+  createCellsReferences(field, sizeX, sizeY);
   return field;
 };
 
@@ -25,7 +43,7 @@ export const getLevelData = (
     object.coordinates.forEach((coords) => {
       const baseObj = getBaseModel({ x: coords[0], y: coords[1] });
       const obj = modelCreator(baseObj, object.props);
-      field[`${coords[0]},${coords[1]}`].push(obj);
+      field[`${coords[0]},${coords[1]}`].materialObjects.push(obj);
       objects.push(obj);
     });
   });
@@ -43,7 +61,7 @@ export const createFieldWithObjects = (
   const field = createField(fieldSize.sizeX, fieldSize.sizeY);
   materialObjects.forEach((obj) => {
     const { x, y } = obj.coordinates;
-    field[`${x},${y}`].push(obj);
+    field[`${x},${y}`].materialObjects.push(obj);
   });
   return field;
 };

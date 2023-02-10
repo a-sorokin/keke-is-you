@@ -1,15 +1,15 @@
 import style from "./Cell.module.scss";
 import React from "react";
-import { TMaterialObjects } from "models/types";
+import { TCell } from "levels/types";
 
 type TProps = {
-  materialObjects: TMaterialObjects;
+  cellObject: TCell;
 };
 
-export const Cell: React.FC<TProps> = ({ materialObjects }) => {
+export const Cell: React.FC<TProps> = ({ cellObject }) => {
   return (
     <div className={style.cell}>
-      {materialObjects.map((obj) => (
+      {cellObject.materialObjects.map((obj) => (
         <div key={obj.id} className={style.obj}>
           {obj.icon || obj.name}
         </div>

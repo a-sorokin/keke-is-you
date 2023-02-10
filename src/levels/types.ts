@@ -1,5 +1,6 @@
 import { TMaterialObjects, TModelName } from "models/types";
 import { MODELS_NAMES } from "models/models";
+import { TDirection } from "engine/moveController/types";
 
 export type TFieldConfig = {
   sizeX: number;
@@ -20,6 +21,14 @@ export type TLevelConfig = {
   materialObjects: TObjectConfig[];
 };
 
+export type TCell = {
+  id: string;
+  adjoiningCells: {
+    [key: TDirection]: TCell | null;
+  };
+  materialObjects: TMaterialObjects;
+};
+
 export type TField = {
-  [key: string]: TMaterialObjects;
+  [key: string]: TCell;
 };

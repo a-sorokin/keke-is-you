@@ -30,7 +30,7 @@ export const Field: React.FC<TProps> = ({ sizeX, sizeY }) => {
     >
       {fieldKeys.map((id) => (
         <div key={id} id={id}>
-          <Cell materialObjects={getCellObjects(id)} />
+          <Cell cellObject={getCellObjects(id)} />
         </div>
       ))}
     </div>

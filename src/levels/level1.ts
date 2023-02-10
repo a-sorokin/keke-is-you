@@ -14,6 +14,9 @@ const levelConfig: TLevelConfig = {
         ...getCoordinatesByRange([3, 10], [3]),
         ...getCoordinatesByRange([3, 12], [4]),
       ],
+      props: {
+        isPush: true,
+      },
     },
     {
       name: MODELS_NAMES.wall,

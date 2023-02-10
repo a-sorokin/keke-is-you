@@ -33,6 +33,7 @@ export const useGameStore = create<TState>((set, get) => ({
     initMoveController(get().moveObjects);
     set({ isMoveControllerInit: true });
   },
+
   initLevel: (id: string) => {
     const { isMoveControllerInit, initMoveController } = get();
     if (!isMoveControllerInit) initMoveController();
@@ -43,18 +44,21 @@ export const useGameStore = create<TState>((set, get) => ({
 
     set({ field, materialObjects, fieldSize: lvl.config.field, isWin: false });
   },
+
   moveObjects: (direction: TDirection) => {
     const { materialObjects, fieldSize, field, isWin } = get();
     if (isWin) return;
     moveObjects(direction, materialObjects, fieldSize, field);
     get().updateField(materialObjects);
   },
+
   updateField: (materialObjects: TMaterialObjects) => {
     const { fieldSize } = get();
     const updatedField = createFieldWithObjects(fieldSize, materialObjects);
     set({ field: updatedField });
     get().checkWin();
   },
+
   checkWin: () => {
     const { materialObjects, field } = get();
     const isWin = checkWin(materialObjects, field);

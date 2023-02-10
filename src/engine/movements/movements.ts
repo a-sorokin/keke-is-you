@@ -22,26 +22,22 @@ const moveActions = {
   }),
 };
 
+const isInField = (
+  { sizeX, sizeY }: TFieldConfig,
+  { x, y }: { x: number; y: number }
+): boolean => !(x < 1 || y < 1 || x > sizeX || y > sizeY);
+
 export const moveObjects = (
   direction: TDirection,
   materialObjects: TMaterialObjects,
   fieldSize: TFieldConfig
 ) => {
-  const { sizeX, sizeY } = fieldSize;
-
   materialObjects.forEach((obj) => {
     if (!obj.isYou) return;
     const newCoordinates = moveActions[direction](obj);
 
-    if (
-      newCoordinates.x < 1 ||
-      newCoordinates.y < 1 ||
-      newCoordinates.x > sizeX ||
-      newCoordinates.y > sizeY
-    ) {
-      return;
+    if (isInField(fieldSize, newCoordinates)) {
+      obj.coordinates = newCoordinates;
     }
-
-    obj.coordinates = newCoordinates;
   });
 };

@@ -3,11 +3,9 @@ import { TField, TFieldConfig } from "levels/types";
 import { createFieldWithObjects, getLevelData } from "levels/initLevel";
 import { levels } from "levels/levels";
 import { TMaterialObjects } from "models/types";
-import { TDirection } from "features/MoveController/types";
-import {
-  initMoveController,
-  moveObjects,
-} from "features/MoveController/MoveController";
+import { TDirection } from "engine/moveController/types";
+import { initMoveController } from "engine/moveController/moveController";
+import { moveObjects } from "engine/movements/movements";
 
 interface TState {
   isMoveControllerInit: boolean;

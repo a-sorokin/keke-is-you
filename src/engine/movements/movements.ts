@@ -1,23 +1,7 @@
-import { ARROWS, DIRECTIONS } from "features/MoveController/directions";
-import { TDirection } from "features/MoveController/types";
-import { TFieldConfig } from "levels/types";
+import { DIRECTIONS } from "engine/constants";
 import { TMaterialObject, TMaterialObjects } from "models/types";
-
-export const initMoveController = (
-  moveCallback: (direction: TDirection) => void
-) => {
-  const keyActions = {
-    [ARROWS.ArrowRight]: () => moveCallback(DIRECTIONS.right),
-    [ARROWS.ArrowLeft]: () => moveCallback(DIRECTIONS.left),
-    [ARROWS.ArrowUp]: () => moveCallback(DIRECTIONS.up),
-    [ARROWS.ArrowDown]: () => moveCallback(DIRECTIONS.down),
-  };
-
-  window.onkeydown = (event) => {
-    const action = keyActions[event.key];
-    if (action) action();
-  };
-};
+import { TDirection } from "engine/moveController/types";
+import { TFieldConfig } from "levels/types";
 
 const moveActions = {
   [DIRECTIONS.right]: (obj: TMaterialObject) => ({
@@ -37,12 +21,14 @@ const moveActions = {
     y: obj.coordinates.y + 1,
   }),
 };
+
 export const moveObjects = (
   direction: TDirection,
   materialObjects: TMaterialObjects,
   fieldSize: TFieldConfig
 ) => {
   const { sizeX, sizeY } = fieldSize;
+
   materialObjects.forEach((obj) => {
     if (!obj.isYou) return;
     const newCoordinates = moveActions[direction](obj);

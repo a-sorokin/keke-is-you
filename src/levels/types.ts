@@ -11,6 +11,7 @@ export type TObjectConfig = {
   coordinates: number[][];
   props?: {
     isYou?: boolean;
+    isStop?: boolean;
   };
 };
 

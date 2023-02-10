@@ -21,6 +21,9 @@ const levelConfig: TLevelConfig = {
         ...getCoordinatesByRange([4, 16], [3]),
         ...getCoordinatesByRange([4, 16], [8]),
       ],
+      props: {
+        isStop: true,
+      },
     },
     {
       name: MODELS_NAMES.rock,

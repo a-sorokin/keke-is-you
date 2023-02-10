@@ -13,6 +13,7 @@ export type TObjectConfig = {
   props?: {
     isYou?: boolean;
     isStop?: boolean;
+    isPush?: boolean;
   };
 };
 
@@ -21,8 +22,10 @@ export type TLevelConfig = {
   materialObjects: TObjectConfig[];
 };
 
+export type TCoordinates = `${number},${number}`;
+
 export type TCell = {
-  id: `${number},${number}`;
+  id: TCoordinates;
   adjoiningCells: {
     [key: TDirection]: TCell | null;
   };

@@ -1,9 +1,10 @@
 import { MODELS_NAMES } from "models/models";
+import { TCoordinates } from "levels/types";
 
 export type TMaterialObject = {
   id: string;
   name: (typeof MODELS_NAMES)[TModelName];
-  coordinates: `${number},${number}`;
+  coordinates: TCoordinates;
   icon?: string;
   isYou?: boolean;
   isStop?: boolean;

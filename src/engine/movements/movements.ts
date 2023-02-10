@@ -1,6 +1,18 @@
 import { TMaterialObjects } from "models/types";
 import { TDirection } from "engine/moveController/types";
-import { TField, TFieldConfig } from "levels/types";
+import { TCell, TField, TFieldConfig } from "levels/types";
+
+const isStop = (targetCell: TCell): boolean => {
+  return targetCell.materialObjects.some((o) => o.isStop);
+};
+
+const updateCells = (cell: TCell, targetCell: TCell, id: string) => {
+  const objIndex = cell.materialObjects.findIndex((o) => o.id === id);
+  const isolatedObj = cell.materialObjects.splice(objIndex, 1)[0];
+
+  isolatedObj.coordinates = targetCell.id;
+  targetCell.materialObjects.push(isolatedObj);
+};
 
 export const moveObjects = (
   direction: TDirection,
@@ -15,12 +27,9 @@ export const moveObjects = (
     const targetCell = cell.adjoiningCells[direction];
 
     if (!targetCell) return;
+    if (isStop(targetCell)) return;
 
-    const objIndex = cell.materialObjects.findIndex((o) => o.id === obj.id);
-    const isolatedObj = cell.materialObjects.splice(objIndex, 1)[0];
-
-    isolatedObj.coordinates = targetCell.id;
-    targetCell.materialObjects.push(isolatedObj);
+    updateCells(cell, targetCell, obj.id);
   });
 
   return field;

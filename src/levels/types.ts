@@ -14,6 +14,7 @@ export type TObjectConfig = {
     isYou?: boolean;
     isStop?: boolean;
     isPush?: boolean;
+    isWin?: boolean;
   };
 };
 

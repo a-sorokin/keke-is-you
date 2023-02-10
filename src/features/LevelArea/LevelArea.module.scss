@@ -1,4 +1,14 @@
 .levelArea {
   width: 80vw;
   height: 90vh;
+  position: relative;
+}
+
+.win {
+  background-color: #005700;
+  font-weight: bold;
+  opacity: 0.7;
+  position: absolute;
+  width: 100%;
+  top: 50px;
 }

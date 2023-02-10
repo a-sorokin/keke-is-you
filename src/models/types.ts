@@ -8,6 +8,8 @@ export type TMaterialObject = {
   icon?: string;
   isYou?: boolean;
   isStop?: boolean;
+  isPush?: boolean;
+  isWin?: boolean;
 };
 
 export type TMaterialObjects = TMaterialObject[];

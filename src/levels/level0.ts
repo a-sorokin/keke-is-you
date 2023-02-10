@@ -5,7 +5,7 @@ import { getCoordinatesByRange } from "levels/utils";
 const levelConfig: TLevelConfig = {
   field: {
     sizeX: 19,
-    sizeY: 10,
+    sizeY: 9,
   },
   materialObjects: [
     {
@@ -16,10 +16,17 @@ const levelConfig: TLevelConfig = {
       },
     },
     {
+      name: MODELS_NAMES.flag,
+      coordinates: [[15, 5]],
+      props: {
+        isWin: true,
+      },
+    },
+    {
       name: MODELS_NAMES.wall,
       coordinates: [
         ...getCoordinatesByRange([4, 16], [3]),
-        ...getCoordinatesByRange([4, 16], [8]),
+        ...getCoordinatesByRange([4, 16], [7]),
       ],
       props: {
         isStop: true,
@@ -27,7 +34,7 @@ const levelConfig: TLevelConfig = {
     },
     {
       name: MODELS_NAMES.rock,
-      coordinates: getCoordinatesByRange([10], [4, 7]),
+      coordinates: getCoordinatesByRange([10], [4, 6]),
       props: {
         isPush: true,
       },

@@ -1,4 +1,4 @@
-import { Field } from "features/Field/Field";
+import { Field } from "components/Field/Field";
 import style from "./LevelArea.module.scss";
 import { useGameStore } from "store/store";
 

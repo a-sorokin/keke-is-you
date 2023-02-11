@@ -1,5 +1,5 @@
-import { LevelSelector } from "features/LevelSelector/LevelSelector";
-import { LevelArea } from "features/LevelArea/LevelArea";
+import { LevelSelector } from "components/LevelSelector/LevelSelector";
+import { LevelArea } from "components/LevelArea/LevelArea";
 import style from "./AppContainer.module.scss";
 
 export const AppContainer = () => {

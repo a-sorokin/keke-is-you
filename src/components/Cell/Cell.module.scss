@@ -11,3 +11,16 @@
 .obj {
   position: absolute;
 }
+
+.winCell {
+  animation: winAnimation 2s ease-in-out infinite;
+}
+
+@keyframes winAnimation {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.5);
+  }
+}

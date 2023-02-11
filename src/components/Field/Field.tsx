@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from "react";
-import { Cell } from "features/Cell/Cell";
+import { Cell } from "components/Cell/Cell";
 import style from "./Field.module.scss";
 import { useGameStore } from "store/store";
 import { TFieldConfig } from "levels/types";

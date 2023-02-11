@@ -1,26 +1,52 @@
-import { MODELS_NAMES } from "models/models";
+import { ACTIONS, M_OBJECT_TYPES, MODELS_NAMES, WORDS } from "models/models";
 import { TCoordinates } from "levels/types";
+import { TModelCreator } from "models/builder/types";
+
+export type TAction = keyof typeof ACTIONS;
+export type TActionValue = (typeof ACTIONS)[TAction];
+
+export type TMaterialObjectTypes = keyof typeof M_OBJECT_TYPES;
+export type TMaterialObjectTypesValues =
+  (typeof M_OBJECT_TYPES)[TMaterialObjectTypes];
 
 export type TMaterialObject = {
   id: string;
-  name: (typeof MODELS_NAMES)[TModelName];
+  name: TModelNameValue;
   coordinates: TCoordinates;
-  icon?: string;
-  isYou?: boolean;
-  isStop?: boolean;
-  isPush?: boolean;
-  isWin?: boolean;
+  icon: string;
+  type: TMaterialObjectTypesValues;
+  props: {
+    [key: TActionValue]: boolean | unknown;
+  };
 };
 
-export type TMaterialObjects = TMaterialObject[];
+export type TWordBlock = TMaterialObject & {
+  wordProps: {
+    word: TWordsValue;
+  };
+};
+
+export type TActionBlock = TMaterialObject & {
+  actionProps: {
+    action: TActionValue;
+  };
+};
+
+export type TLogicBlock = TMaterialObject & {
+  logicProps: {};
+};
+
+export type TMaterialObjects = (TMaterialObject &
+  TWordBlock &
+  TActionBlock &
+  TLogicBlock)[];
+
+export type TWords = keyof typeof WORDS;
+export type TWordsValue = (typeof WORDS)[TWords];
 
 export type TModelName = keyof typeof MODELS_NAMES;
-
-export type TModelCreator = (coordinates: {
-  x: number;
-  y: number;
-}) => TMaterialObject;
+export type TModelNameValue = (typeof MODELS_NAMES)[TModelName];
 
 export type TModels = {
-  [key: (typeof MODELS_NAMES)[TModelName]]: TModelCreator;
+  [key: TModelNameValue]: TModelCreator;
 };

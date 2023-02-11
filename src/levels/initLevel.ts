@@ -1,6 +1,6 @@
 import { TCell, TField, TFieldConfig, TLevelConfig } from "levels/types";
-import { modelCreator, models } from "models/models";
-import { TMaterialObjects, TModelCreator } from "models/types";
+import { M_OBJECT_TYPES, models } from "models/models";
+import { TLogicBlock, TMaterialObjects } from "models/types";
 
 const createCellsReferences = (field: TField, sizeX: number, sizeY: number) => {
   for (let i = 1; i <= sizeX; i++) {
@@ -32,25 +32,39 @@ const createField = (sizeX: number, sizeY: number): TField => {
 
 export const getLevelData = (
   level: TLevelConfig
-): { field: TField; materialObjects: TMaterialObjects } => {
+): {
+  field: TField;
+  materialObjects: TMaterialObjects;
+  logicBlocks: TLogicBlock[];
+} => {
   const field = createField(level.field.sizeX, level.field.sizeY);
   const { materialObjects } = level;
   const objects: TMaterialObjects = [];
+  const logicBlocks: TLogicBlock[] = [];
 
   materialObjects.forEach((object) => {
-    const getBaseModel: TModelCreator = models[object.name];
+    const getBaseModel = models[object.name];
 
     object.coordinates.forEach((coords) => {
-      const baseObj = getBaseModel({ x: coords[0], y: coords[1] });
-      const obj = modelCreator(baseObj, object.props);
-      field[`${coords[0]},${coords[1]}`].materialObjects.push(obj);
+      const baseObj = getBaseModel();
+      const strCoords: `${number},${number}` = `${coords[0]},${coords[1]}`;
+
+      baseObj.coordinates = strCoords;
+
+      const obj = { ...baseObj, ...object.props };
+      obj.props = { ...obj.props, ...object.props };
+
+      field[strCoords].materialObjects.push(obj);
       objects.push(obj);
+
+      if (obj.type === M_OBJECT_TYPES.logic) logicBlocks.push(obj);
     });
   });
 
   return {
     field,
     materialObjects: objects,
+    logicBlocks,
   };
 };
 

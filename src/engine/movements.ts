@@ -3,11 +3,11 @@ import { TDirection } from "engine/moveController/types";
 import { TCell, TField, TFieldConfig } from "levels/types";
 
 const isStop = (targetCell: TCell): boolean => {
-  return targetCell.materialObjects.some((o) => o.isStop);
+  return targetCell.materialObjects.some((o) => o.props.isStop);
 };
 
 const getPushableObjects = (targetCell: TCell): TMaterialObjects => {
-  return targetCell.materialObjects.filter((o) => o.isPush);
+  return targetCell.materialObjects.filter((o) => o.props.isPush);
 };
 
 const updateCells = (cell: TCell, targetCell: TCell, id: string) => {
@@ -53,7 +53,7 @@ export const moveObjects = (
   field: TField
 ) => {
   materialObjects.forEach((obj) => {
-    if (!obj.isYou) return;
+    if (!obj.props.isYou) return;
     const cell = field[obj.coordinates];
     changeObjectPosition(cell, direction, obj.id);
   });

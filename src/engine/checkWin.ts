@@ -6,8 +6,8 @@ const isYouAndWinHere = (cell: TCell): boolean => {
   let isYouHere = false;
 
   cell.materialObjects.forEach((o) => {
-    if (o.isYou) isYouHere = true;
-    if (o.isWin) isWinHere = true;
+    if (o.props.isYou) isYouHere = true;
+    if (o.props.isWin) isWinHere = true;
   });
 
   return isYouHere && isWinHere;

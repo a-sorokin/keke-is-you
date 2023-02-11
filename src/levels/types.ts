@@ -1,5 +1,4 @@
-import { TMaterialObjects, TModelName } from "models/types";
-import { MODELS_NAMES } from "models/models";
+import { TActionValue, TMaterialObjects, TModelNameValue } from "models/types";
 import { TDirection } from "engine/moveController/types";
 
 export type TFieldConfig = {
@@ -8,13 +7,10 @@ export type TFieldConfig = {
 };
 
 export type TObjectConfig = {
-  name: (typeof MODELS_NAMES)[TModelName];
+  name: TModelNameValue;
   coordinates: number[][];
   props?: {
-    isYou?: boolean;
-    isStop?: boolean;
-    isPush?: boolean;
-    isWin?: boolean;
+    [key: TActionValue]: boolean | unknown;
   };
 };
 

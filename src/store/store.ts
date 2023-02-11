@@ -2,17 +2,19 @@ import { create } from "zustand";
 import { TField, TFieldConfig } from "levels/types";
 import { createFieldWithObjects, getLevelData } from "levels/initLevel";
 import { levels } from "levels/levels";
-import { TMaterialObjects } from "models/types";
+import { TLogicBlock, TMaterialObjects } from "models/types";
 import { TDirection } from "engine/moveController/types";
 import { initMoveController } from "engine/moveController/moveController";
 import { moveObjects } from "engine/movements";
 import { checkWin } from "engine/checkWin";
+import { checkRules } from "engine/rules";
 
 interface TState {
   isMoveControllerInit: boolean;
   fieldSize: TFieldConfig;
   field: TField;
   materialObjects: TMaterialObjects;
+  logicBlocks: TLogicBlock[];
   isWin: boolean;
 
   initMoveController: () => void;
@@ -27,6 +29,7 @@ export const useGameStore = create<TState>((set, get) => ({
   fieldSize: {} as TFieldConfig,
   field: {},
   materialObjects: [],
+  logicBlocks: [],
   isWin: false,
 
   initMoveController: () => {
@@ -40,9 +43,17 @@ export const useGameStore = create<TState>((set, get) => ({
 
     const lvl = levels.find((level) => level.id === id);
     if (!lvl) return;
-    const { field, materialObjects } = getLevelData(lvl.config);
+    const { field, materialObjects, logicBlocks } = getLevelData(lvl.config);
 
-    set({ field, materialObjects, fieldSize: lvl.config.field, isWin: false });
+    checkRules(field, materialObjects, logicBlocks);
+
+    set({
+      field,
+      materialObjects,
+      fieldSize: lvl.config.field,
+      isWin: false,
+      logicBlocks,
+    });
   },
 
   moveObjects: (direction: TDirection) => {
@@ -53,8 +64,9 @@ export const useGameStore = create<TState>((set, get) => ({
   },
 
   updateField: (materialObjects: TMaterialObjects) => {
-    const { fieldSize } = get();
+    const { fieldSize, logicBlocks } = get();
     const updatedField = createFieldWithObjects(fieldSize, materialObjects);
+    checkRules(updatedField, materialObjects, logicBlocks);
     set({ field: updatedField });
     get().checkWin();
   },

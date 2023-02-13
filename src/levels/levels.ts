@@ -1,6 +1,6 @@
 import { TLevelConfig } from "levels/types";
-import level0 from "levels/level0";
-import level1 from "levels/level1";
+import level0 from "levels/levelsConfigs/level0";
+import level1 from "levels/levelsConfigs/level1";
 
 export type TLevel = {
   id: string;

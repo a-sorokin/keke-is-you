@@ -15,18 +15,15 @@ const updateMaterialObjects = (
 ) => {
   materialObjects.forEach((object) => {
     if (object.type !== M_OBJECT_TYPES.simple) return;
-    let notChanged = true;
 
+    const rulesForObj: { [key: TActionValue]: boolean } = {};
     rules.forEach((rule) => {
       if (object.name === rule.name) {
-        object.props[rule.action] = true;
-        notChanged = false;
+        rulesForObj[rule.action] = true;
       }
     });
 
-    if (notChanged) {
-      object.props = {};
-    }
+    object.props = rulesForObj;
   });
 };
 

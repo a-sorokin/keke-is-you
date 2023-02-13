@@ -66,8 +66,8 @@ export const useGameStore = create<TState>((set, get) => ({
   updateField: (materialObjects: TMaterialObjects) => {
     const { fieldSize, logicBlocks } = get();
     const updatedField = createFieldWithObjects(fieldSize, materialObjects);
-    checkRules(updatedField, materialObjects, logicBlocks);
     set({ field: updatedField });
+    checkRules(updatedField, materialObjects, logicBlocks);
     get().checkWin();
   },
 

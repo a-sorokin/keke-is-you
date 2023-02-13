@@ -47,12 +47,14 @@ const createRule = (
   const wordName = wordCell.materialObjects[0].name;
   const materialObjectName = MODELS_WORDS_RELATIONS[wordName];
 
-  const rule = {
-    name: materialObjectName,
-    action: actionObj.actionProps.action,
-  };
+  if (actionObj.actionProps) {
+    const rule = {
+      name: materialObjectName,
+      action: actionObj.actionProps.action,
+    };
 
-  rules.push(rule);
+    rules.push(rule);
+  }
 };
 
 export const checkRules = (

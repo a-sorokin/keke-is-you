@@ -15,13 +15,19 @@ export type TMaterialObject = {
   coordinates: TCoordinates;
   icon: string;
   type: TMaterialObjectTypesValues;
+
+  // dirty fix
+  wordProps?: { word: TWordsValue };
+  actionProps?: { action: TActionValue };
+  logicProps?: {};
+
   props: {
     [key: TActionValue]: boolean | unknown;
   };
 };
 
 export type TWordBlock = TMaterialObject & {
-  wordProps: {
+  wordProps?: {
     word: TWordsValue;
   };
 };
@@ -33,13 +39,15 @@ export type TActionBlock = TMaterialObject & {
 };
 
 export type TLogicBlock = TMaterialObject & {
-  logicProps: {};
+  logicProps?: {};
 };
 
-export type TMaterialObjects = (TMaterialObject &
-  TWordBlock &
-  TActionBlock &
-  TLogicBlock)[];
+export type TMaterialObjects = (
+  | TMaterialObject
+  | TWordBlock
+  | TActionBlock
+  | TLogicBlock
+)[];
 
 export type TWords = keyof typeof WORDS;
 export type TWordsValue = (typeof WORDS)[TWords];

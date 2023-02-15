@@ -72,10 +72,12 @@ export const getLevelData = (
 export const createFieldWithObjects = (
   fieldSize: TFieldConfig,
   materialObjects: TMaterialObjects
-): TField => {
+): { updatedField: TField; isYouHere: boolean } => {
   const field = createField(fieldSize.sizeX, fieldSize.sizeY);
+  let isYouHere = false;
   materialObjects.forEach((obj) => {
     field[obj.coordinates].materialObjects.push(obj);
+    if (obj.props.isYou) isYouHere = true;
   });
-  return field;
+  return { updatedField: field, isYouHere };
 };

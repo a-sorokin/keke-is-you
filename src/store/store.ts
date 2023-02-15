@@ -18,6 +18,7 @@ interface TState {
   logicBlocks: TStateLogicBlocks;
   isWin: boolean;
   history: THistory;
+  isYouHere: boolean;
 
   initMoveController: () => void;
   initLevel: (id: string) => void;
@@ -26,6 +27,7 @@ interface TState {
   checkWin: () => void;
   addToHistory: () => void;
   undoHistory: () => void;
+  checkIsYouHere: () => void;
 }
 
 export const useGameStore = create<TState>((set, get) => ({
@@ -36,6 +38,7 @@ export const useGameStore = create<TState>((set, get) => ({
   logicBlocks: [],
   isWin: false,
   history: [],
+  isYouHere: true,
 
   initMoveController: () => {
     initMoveController(get().moveObjects, get().undoHistory);
@@ -58,6 +61,7 @@ export const useGameStore = create<TState>((set, get) => ({
       isWin: false,
       logicBlocks,
       history: [],
+      isYouHere: true,
     });
     addToHistory();
   },
@@ -73,8 +77,11 @@ export const useGameStore = create<TState>((set, get) => ({
 
   updateField: (materialObjects: TMaterialObjects) => {
     const { fieldSize, logicBlocks, checkWin } = get();
-    const updatedField = createFieldWithObjects(fieldSize, materialObjects);
-    set({ field: updatedField });
+    const { updatedField, isYouHere } = createFieldWithObjects(
+      fieldSize,
+      materialObjects
+    );
+    set({ field: updatedField, isYouHere });
     checkRules(updatedField, materialObjects, logicBlocks);
     checkWin();
   },
@@ -86,9 +93,11 @@ export const useGameStore = create<TState>((set, get) => ({
   },
 
   addToHistory: () => {
-    const { materialObjects, history } = get();
+    const { materialObjects, history, checkIsYouHere } = get();
     const newHistoryItem = JSON.stringify(materialObjects);
-    if (history.at(-1) === newHistoryItem) return;
+    if (history.at(-1) === newHistoryItem) {
+      return checkIsYouHere();
+    }
     history.push(JSON.stringify(materialObjects));
     set({ history });
   },
@@ -102,5 +111,11 @@ export const useGameStore = create<TState>((set, get) => ({
     const lastObjectsFromHistory = JSON.parse(lastHistoryItem);
     set({ history, materialObjects: lastObjectsFromHistory });
     updateField(lastObjectsFromHistory);
+  },
+  checkIsYouHere: () => {
+    const isYouHereNow = get().materialObjects.some((object) => {
+      return object.props.isYou;
+    });
+    set({ isYouHere: isYouHereNow });
   },
 }));

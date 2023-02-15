@@ -11,3 +11,7 @@ export const DIRECTIONS = {
   up: "up",
   down: "down",
 };
+
+export const KEYBOARDS_BUTTONS = {
+  z: "z",
+};

@@ -1,6 +1,7 @@
 import { TCell, TField, TFieldConfig, TLevelConfig } from "levels/types";
 import { M_OBJECT_TYPES, models } from "models/models";
-import { TLogicBlock, TMaterialObjects } from "models/types";
+import { TMaterialObjects } from "models/types";
+import { TStateLogicBlocks } from "store/types";
 
 const createCellsReferences = (field: TField, sizeX: number, sizeY: number) => {
   for (let i = 1; i <= sizeX; i++) {
@@ -35,12 +36,12 @@ export const getLevelData = (
 ): {
   field: TField;
   materialObjects: TMaterialObjects;
-  logicBlocks: TLogicBlock[];
+  logicBlocks: TStateLogicBlocks;
 } => {
   const field = createField(level.field.sizeX, level.field.sizeY);
   const { materialObjects } = level;
   const objects: TMaterialObjects = [];
-  const logicBlocks: TLogicBlock[] = [];
+  const logicBlocks: TStateLogicBlocks = [];
 
   materialObjects.forEach((object) => {
     const getBaseModel = models[object.name];
@@ -57,7 +58,7 @@ export const getLevelData = (
       field[strCoords].materialObjects.push(obj);
       objects.push(obj);
 
-      if (obj.type === M_OBJECT_TYPES.logic) logicBlocks.push(obj);
+      if (obj.type === M_OBJECT_TYPES.logic) logicBlocks.push(obj.id);
     });
   });
 

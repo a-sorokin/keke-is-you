@@ -1,11 +1,7 @@
 import { TCell, TField } from "levels/types";
-import {
-  TActionValue,
-  TLogicBlock,
-  TMaterialObjects,
-  TModelNameValue,
-} from "models/types";
+import { TActionValue, TMaterialObjects, TModelNameValue } from "models/types";
 import { M_OBJECT_TYPES, MODELS_WORDS_RELATIONS } from "models/models";
+import { TStateLogicBlocks } from "store/types";
 
 type TRules = { name: TModelNameValue; action: TActionValue }[];
 
@@ -60,11 +56,13 @@ const createRule = (
 export const checkRules = (
   field: TField,
   materialObjects: TMaterialObjects,
-  logicBlocks: TLogicBlock[]
+  logicBlocks: TStateLogicBlocks
 ): TMaterialObjects => {
   const rules: TRules = [];
 
-  logicBlocks.forEach((block) => {
+  logicBlocks.forEach((blockId) => {
+    const block = materialObjects.find((obj) => obj.id === blockId);
+    if (!block) return;
     const { adjoiningCells } = field[block.coordinates];
     createRule(adjoiningCells.up, adjoiningCells.down, rules);
     createRule(adjoiningCells.left, adjoiningCells.right, rules);

@@ -2,26 +2,30 @@ import { create } from "zustand";
 import { TField, TFieldConfig } from "levels/types";
 import { createFieldWithObjects, getLevelData } from "levels/initLevel";
 import { levels } from "levels/levels";
-import { TLogicBlock, TMaterialObjects } from "models/types";
+import { TMaterialObjects } from "models/types";
 import { TDirection } from "engine/moveController/types";
 import { initMoveController } from "engine/moveController/moveController";
 import { moveObjects } from "engine/movements";
 import { checkWin } from "engine/checkWin";
 import { checkRules } from "engine/rules";
+import { THistory, TStateLogicBlocks } from "store/types";
 
 interface TState {
   isMoveControllerInit: boolean;
   fieldSize: TFieldConfig;
   field: TField;
   materialObjects: TMaterialObjects;
-  logicBlocks: TLogicBlock[];
+  logicBlocks: TStateLogicBlocks;
   isWin: boolean;
+  history: THistory;
 
   initMoveController: () => void;
   initLevel: (id: string) => void;
   moveObjects: (direction: string) => void;
   updateField: (materialObjects: TMaterialObjects) => void;
   checkWin: () => void;
+  addToHistory: () => void;
+  undoHistory: () => void;
 }
 
 export const useGameStore = create<TState>((set, get) => ({
@@ -31,14 +35,15 @@ export const useGameStore = create<TState>((set, get) => ({
   materialObjects: [],
   logicBlocks: [],
   isWin: false,
+  history: [],
 
   initMoveController: () => {
-    initMoveController(get().moveObjects);
+    initMoveController(get().moveObjects, get().undoHistory);
     set({ isMoveControllerInit: true });
   },
 
   initLevel: (id: string) => {
-    const { isMoveControllerInit, initMoveController } = get();
+    const { isMoveControllerInit, initMoveController, addToHistory } = get();
     if (!isMoveControllerInit) initMoveController();
 
     const lvl = levels.find((level) => level.id === id);
@@ -46,34 +51,56 @@ export const useGameStore = create<TState>((set, get) => ({
     const { field, materialObjects, logicBlocks } = getLevelData(lvl.config);
 
     checkRules(field, materialObjects, logicBlocks);
-
     set({
       field,
       materialObjects,
       fieldSize: lvl.config.field,
       isWin: false,
       logicBlocks,
+      history: [],
     });
+    addToHistory();
   },
 
   moveObjects: (direction: TDirection) => {
-    const { materialObjects, fieldSize, field, isWin } = get();
-    if (isWin) return;
+    if (get().isWin) return;
+    const { materialObjects, fieldSize, field, addToHistory, updateField } =
+      get();
     moveObjects(direction, materialObjects, fieldSize, field);
-    get().updateField(materialObjects);
+    updateField(materialObjects);
+    addToHistory();
   },
 
   updateField: (materialObjects: TMaterialObjects) => {
-    const { fieldSize, logicBlocks } = get();
+    const { fieldSize, logicBlocks, checkWin } = get();
     const updatedField = createFieldWithObjects(fieldSize, materialObjects);
     set({ field: updatedField });
     checkRules(updatedField, materialObjects, logicBlocks);
-    get().checkWin();
+    checkWin();
   },
 
   checkWin: () => {
     const { materialObjects, field } = get();
     const isWin = checkWin(materialObjects, field);
     if (isWin) set({ isWin });
+  },
+
+  addToHistory: () => {
+    const { materialObjects, history } = get();
+    const newHistoryItem = JSON.stringify(materialObjects);
+    if (history.at(-1) === newHistoryItem) return;
+    history.push(JSON.stringify(materialObjects));
+    set({ history });
+  },
+
+  undoHistory: () => {
+    const { isWin, history, updateField } = get();
+    if (isWin || !history.length || history.length === 1) return;
+
+    history.pop();
+    const lastHistoryItem = history[history.length - 1];
+    const lastObjectsFromHistory = JSON.parse(lastHistoryItem);
+    set({ history, materialObjects: lastObjectsFromHistory });
+    updateField(lastObjectsFromHistory);
   },
 }));

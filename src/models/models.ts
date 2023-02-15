@@ -45,8 +45,6 @@ export const models: TModels = {
   flag: getFlag,
   wall: getWall,
   rock: getRock,
-
-  // words
   you: getYouBlock,
   win: getWinBlock,
   is: getIsBlock,

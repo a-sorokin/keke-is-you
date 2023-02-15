@@ -1,6 +1,7 @@
 import { Field } from "components/Field/Field";
 import style from "./LevelArea.module.scss";
 import { useGameStore } from "store/store";
+import { Hints } from "components/Hints/Hints";
 
 export const LevelArea = () => {
   const { fieldSize, isWin, isYouHere } = useGameStore((state) => ({
@@ -15,7 +16,7 @@ export const LevelArea = () => {
         <Field sizeX={fieldSize.sizeX} sizeY={fieldSize.sizeY} />
       ) : null}
 
-      {isYouHere ? null : <div>Press "Z" for undo</div>}
+      {isYouHere ? null : <Hints />}
       {isWin ? <h2 className={style.win}>You win!</h2> : null}
     </div>
   );

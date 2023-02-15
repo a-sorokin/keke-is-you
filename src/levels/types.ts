@@ -1,5 +1,15 @@
 import { TActionValue, TMaterialObjects, TModelNameValue } from "models/types";
 import { TDirection } from "engine/moveController/types";
+import { LEVELS_ID } from "levels/levels";
+
+export type TLevel = {
+  id: TLevelId;
+  name: string;
+  description: string;
+  config: TLevelConfig;
+};
+
+export type TLevels = TLevel[];
 
 export type TFieldConfig = {
   sizeX: number;
@@ -32,3 +42,5 @@ export type TCell = {
 export type TField = {
   [key: string]: TCell;
 };
+
+export type TLevelId = (typeof LEVELS_ID)[keyof typeof LEVELS_ID];

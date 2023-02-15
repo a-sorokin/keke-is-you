@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { TField, TFieldConfig } from "levels/types";
+import { TField, TFieldConfig, TLevelId } from "levels/types";
 import { createFieldWithObjects, getLevelData } from "levels/initLevel";
 import { levels } from "levels/levels";
 import { TMaterialObjects } from "models/types";
@@ -11,6 +11,7 @@ import { checkRules } from "engine/rules";
 import { THistory, TStateLogicBlocks } from "store/types";
 
 interface TState {
+  levelId: string;
   isMoveControllerInit: boolean;
   fieldSize: TFieldConfig;
   field: TField;
@@ -28,9 +29,11 @@ interface TState {
   addToHistory: () => void;
   undoHistory: () => void;
   checkIsYouHere: () => void;
+  restartLevel: () => void;
 }
 
 export const useGameStore = create<TState>((set, get) => ({
+  levelId: "",
   isMoveControllerInit: false,
   fieldSize: {} as TFieldConfig,
   field: {},
@@ -41,11 +44,12 @@ export const useGameStore = create<TState>((set, get) => ({
   isYouHere: true,
 
   initMoveController: () => {
-    initMoveController(get().moveObjects, get().undoHistory);
+    const { moveObjects, undoHistory, restartLevel } = get();
+    initMoveController(moveObjects, undoHistory, restartLevel);
     set({ isMoveControllerInit: true });
   },
 
-  initLevel: (id: string) => {
+  initLevel: (id: TLevelId) => {
     const { isMoveControllerInit, initMoveController, addToHistory } = get();
     if (!isMoveControllerInit) initMoveController();
 
@@ -55,6 +59,7 @@ export const useGameStore = create<TState>((set, get) => ({
 
     checkRules(field, materialObjects, logicBlocks);
     set({
+      levelId: id,
       field,
       materialObjects,
       fieldSize: lvl.config.field,
@@ -112,8 +117,14 @@ export const useGameStore = create<TState>((set, get) => ({
     set({ history, materialObjects: lastObjectsFromHistory });
     updateField(lastObjectsFromHistory);
   },
+
   checkIsYouHere: () => {
     const isYouHereNow = get().materialObjects.some((obj) => obj.props.isYou);
     set({ isYouHere: isYouHereNow });
+  },
+
+  restartLevel: () => {
+    const { levelId, initLevel } = get();
+    initLevel(levelId);
   },
 }));

@@ -14,4 +14,5 @@ export const DIRECTIONS = {
 
 export const KEYBOARDS_BUTTONS = {
   z: "z",
+  r: "r",
 };

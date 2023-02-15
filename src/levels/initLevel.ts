@@ -1,6 +1,6 @@
 import { TCell, TField, TFieldConfig, TLevelConfig } from "levels/types";
 import { M_OBJECT_TYPES, models } from "models/models";
-import { TMaterialObjects } from "models/types";
+import { TMaterialObjectProps, TMaterialObjects } from "models/types";
 import { TStateLogicBlocks } from "store/types";
 
 const createCellsReferences = (field: TField, sizeX: number, sizeY: number) => {
@@ -53,7 +53,7 @@ export const getLevelData = (
       baseObj.coordinates = strCoords;
 
       const obj = { ...baseObj, ...object.props };
-      obj.props = { ...obj.props, ...object.props };
+      obj.props = { ...obj.props, ...object.props } as TMaterialObjectProps;
 
       field[strCoords].materialObjects.push(obj);
       objects.push(obj);

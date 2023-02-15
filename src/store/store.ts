@@ -113,9 +113,7 @@ export const useGameStore = create<TState>((set, get) => ({
     updateField(lastObjectsFromHistory);
   },
   checkIsYouHere: () => {
-    const isYouHereNow = get().materialObjects.some((object) => {
-      return object.props.isYou;
-    });
+    const isYouHereNow = get().materialObjects.some((obj) => obj.props.isYou);
     set({ isYouHere: isYouHereNow });
   },
 }));

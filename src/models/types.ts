@@ -9,6 +9,10 @@ export type TMaterialObjectTypes = keyof typeof M_OBJECT_TYPES;
 export type TMaterialObjectTypesValues =
   (typeof M_OBJECT_TYPES)[TMaterialObjectTypes];
 
+export type TMaterialObjectProps = {
+  [key: TActionValue]: boolean;
+};
+
 export type TMaterialObject = {
   id: string;
   name: TModelNameValue;
@@ -21,9 +25,7 @@ export type TMaterialObject = {
   actionProps?: { action: TActionValue };
   logicProps?: {};
 
-  props: {
-    [key: TActionValue]: boolean | unknown;
-  };
+  props: TMaterialObjectProps;
 };
 
 export type TWordBlock = TMaterialObject & {

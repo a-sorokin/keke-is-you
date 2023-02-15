@@ -61,6 +61,7 @@ export const ACTIONS = {
   isStop: "isStop",
   isPush: "isPush",
   isYou: "isYou",
+  replace: "replace",
 };
 
 export const M_OBJECT_TYPES = {

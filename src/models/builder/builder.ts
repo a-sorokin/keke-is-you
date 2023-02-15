@@ -24,9 +24,9 @@ const getMaterialObject = (
   props: any
 ): TMaterialObject & TLogicBlock & TWordBlock & TActionBlock => ({
   props: {},
-  id: crypto.randomUUID(),
   coordinates: "1,1",
   ...props,
+  id: crypto.randomUUID(),
 });
 
 export const getSimpleObject = (props: TProps): TMaterialObject => {

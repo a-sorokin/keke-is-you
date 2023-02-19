@@ -13,6 +13,10 @@ export const DIRECTIONS = {
 };
 
 export const KEYBOARDS_BUTTONS = {
+  w: "w",
+  a: "a",
+  s: "s",
+  d: "d",
   z: "z",
   r: "r",
 };

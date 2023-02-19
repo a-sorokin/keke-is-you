@@ -11,6 +11,12 @@ export const initMoveController = (
     [ARROWS.ArrowLeft]: () => moveCallback(DIRECTIONS.left),
     [ARROWS.ArrowUp]: () => moveCallback(DIRECTIONS.up),
     [ARROWS.ArrowDown]: () => moveCallback(DIRECTIONS.down),
+
+    [KEYBOARDS_BUTTONS.w]: () => moveCallback(DIRECTIONS.up),
+    [KEYBOARDS_BUTTONS.a]: () => moveCallback(DIRECTIONS.left),
+    [KEYBOARDS_BUTTONS.s]: () => moveCallback(DIRECTIONS.down),
+    [KEYBOARDS_BUTTONS.d]: () => moveCallback(DIRECTIONS.right),
+
     [KEYBOARDS_BUTTONS.z]: () => undoCallback(),
     [KEYBOARDS_BUTTONS.r]: () => reloadCallback(),
   };

@@ -10,7 +10,7 @@ import { checkWin } from "engine/checkWin";
 import { checkRules } from "engine/rules";
 import { THistory, TStateLogicBlocks } from "store/types";
 
-interface TState {
+interface IGameStore {
   levelId: string;
   isMoveControllerInit: boolean;
   fieldSize: TFieldConfig;
@@ -32,7 +32,7 @@ interface TState {
   restartLevel: () => void;
 }
 
-export const useGameStore = create<TState>((set, get) => ({
+export const useGameStore = create<IGameStore>((set, get) => ({
   levelId: "",
   isMoveControllerInit: false,
   fieldSize: {} as TFieldConfig,

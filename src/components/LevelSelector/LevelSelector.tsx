@@ -1,6 +1,6 @@
 import { levels } from "levels/levels";
 import style from "./LevelSelector.module.scss";
-import { useGameStore } from "store/store";
+import { useGameStore } from "stores/store";
 import { useEffect } from "react";
 
 export const LevelSelector = () => {

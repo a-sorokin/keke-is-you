@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from "react";
 import { Cell } from "components/Cell/Cell";
 import style from "./Field.module.scss";
-import { useGameStore } from "store/store";
+import { useGameStore } from "stores/store";
 import { TFieldConfig } from "levels/types";
 
 type TProps = TFieldConfig;

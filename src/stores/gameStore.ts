@@ -8,7 +8,7 @@ import { initMoveController } from "engine/moveController/moveController";
 import { moveObjects } from "engine/movements";
 import { checkWin } from "engine/checkWin";
 import { checkRules } from "engine/rules";
-import { THistory, TStateLogicBlocks } from "store/types";
+import { THistory, TStateLogicBlocks } from "stores/types";
 
 interface IGameStore {
   levelId: string;

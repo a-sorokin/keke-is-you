@@ -1,6 +1,6 @@
 import { Field } from "components/Field/Field";
 import style from "./LevelArea.module.scss";
-import { useGameStore } from "store/store";
+import { useGameStore } from "stores/store";
 import { Hints } from "components/Hints/Hints";
 
 export const LevelArea = () => {

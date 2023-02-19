@@ -1,7 +1,7 @@
 import { TCell, TField, TFieldConfig, TLevelConfig } from "levels/types";
 import { M_OBJECT_TYPES, models } from "models/models";
 import { TMaterialObjectProps, TMaterialObjects } from "models/types";
-import { TStateLogicBlocks } from "store/types";
+import { TStateLogicBlocks } from "stores/types";
 
 const createCellsReferences = (field: TField, sizeX: number, sizeY: number) => {
   for (let i = 1; i <= sizeX; i++) {

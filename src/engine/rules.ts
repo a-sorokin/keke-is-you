@@ -11,7 +11,7 @@ import {
   models,
   MODELS_WORDS_RELATIONS,
 } from "models/models";
-import { TStateLogicBlocks } from "store/types";
+import { TStateLogicBlocks } from "stores/types";
 
 type TRules = {
   name: TModelNameValue;

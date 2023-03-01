@@ -51,6 +51,7 @@ export const useGameStore = create<IGameStore>((set, get) => ({
 
   initLevel: (id: TLevelId) => {
     const { isMoveControllerInit, initMoveController, addToHistory } = get();
+
     if (!isMoveControllerInit) initMoveController();
 
     const lvl = levels.find((level) => level.id === id);

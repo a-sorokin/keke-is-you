@@ -1,5 +1,5 @@
 import style from "./Cell.module.scss";
-import React, { useMemo } from "react";
+import { FC, useMemo } from "react";
 import { TCell } from "levels/types";
 import { clsx } from "clsx";
 
@@ -7,7 +7,7 @@ type TProps = {
   cellObject: TCell;
 };
 
-export const Cell: React.FC<TProps> = ({ cellObject }) => {
+export const Cell: FC<TProps> = ({ cellObject }) => {
   const isWinCell = useMemo(
     () => cellObject.materialObjects.some((obj) => obj.props.isWin),
     [cellObject.materialObjects]

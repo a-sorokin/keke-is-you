@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { Cell } from "components/Cell/Cell";
 import style from "./Field.module.scss";
 import { useGameStore } from "store/store";
@@ -16,7 +16,7 @@ const getFieldKeys = (sizeX: number, sizeY: number) => {
   return keys;
 };
 
-export const Field: React.FC<TProps> = ({ sizeX, sizeY }) => {
+export const Field: FC<TProps> = ({ sizeX, sizeY }) => {
   const fieldKeys = useMemo(() => getFieldKeys(sizeX, sizeY), [sizeX, sizeY]);
   const field = useGameStore((state) => state.field);
   const getCellObjects = useCallback((id: string) => field[id], [field]);

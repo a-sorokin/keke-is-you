@@ -41,19 +41,19 @@ export const MODELS_WORDS_RELATIONS = {
 };
 
 export const models: TModels = {
-  keke: getKeke,
-  flag: getFlag,
-  wall: getWall,
-  rock: getRock,
-  you: getYouBlock,
-  win: getWinBlock,
-  is: getIsBlock,
-  stop: getStopBlock,
-  push: getPushBlock,
-  kekeWord: getKekeWordBlock,
-  flagWord: getFlagWordBlock,
-  wallWord: getWallWordBlock,
-  rockWord: getRockWordBlock,
+  [MODELS_NAMES.keke]: getKeke,
+  [MODELS_NAMES.flag]: getFlag,
+  [MODELS_NAMES.wall]: getWall,
+  [MODELS_NAMES.rock]: getRock,
+  [MODELS_NAMES.you]: getYouBlock,
+  [MODELS_NAMES.win]: getWinBlock,
+  [MODELS_NAMES.is]: getIsBlock,
+  [MODELS_NAMES.stop]: getStopBlock,
+  [MODELS_NAMES.push]: getPushBlock,
+  [MODELS_NAMES.kekeWord]: getKekeWordBlock,
+  [MODELS_NAMES.flagWord]: getFlagWordBlock,
+  [MODELS_NAMES.wallWord]: getWallWordBlock,
+  [MODELS_NAMES.rockWord]: getRockWordBlock,
 };
 
 export const ACTIONS = {
